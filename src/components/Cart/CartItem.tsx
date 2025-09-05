@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import classes from './CartItem.module.css';
+import classes from "./CartItem.module.css";
 
 interface CartItemProps {
   name: string;
@@ -9,11 +8,17 @@ interface CartItemProps {
   onRemove: () => void;
 }
 
-const CartItem: FC<CartItemProps> = ({ name, amount, price, onAdd, onRemove }) => {
+export default function CartItem({
+  name,
+  amount,
+  price,
+  onAdd,
+  onRemove,
+}: CartItemProps) {
   const formattedPrice = `Rs${price.toFixed(2)}`;
 
   return (
-    <li className={classes['cart-item']}>
+    <li className={classes["cart-item"]}>
       <div>
         <h2>{name}</h2>
         <div className={classes.summary}>
@@ -27,6 +32,4 @@ const CartItem: FC<CartItemProps> = ({ name, amount, price, onAdd, onRemove }) =
       </div>
     </li>
   );
-};
-
-export default CartItem;
+}

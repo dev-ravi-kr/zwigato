@@ -1,16 +1,11 @@
-import type { FC } from 'react';
-import { Fragment } from 'react';
+import AvailableMeals from "./AvailableMeals";
+import MealsSummary from "./MealsSummary";
 
-import AvailableMeals from './AvailableMeals';
-import MealsSummary from './MealsSummary';
-
-const Meals: FC = () => {
+export default function Meals() {
   return (
-    <Fragment>
+    <>
       <MealsSummary />
       <AvailableMeals />
-    </Fragment>
+    </>
   );
-};
-
-export default Meals;
+}

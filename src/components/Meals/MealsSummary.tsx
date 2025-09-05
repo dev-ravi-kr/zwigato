@@ -1,7 +1,6 @@
-import type { FC } from 'react';
-import classes from './MealsSummary.module.css';
+import classes from "./MealsSummary.module.css";
 
-const MealsSummary: FC = () => {
+export default function MealsSummary() {
   return (
     <section className={classes.summary}>
       <h2>Delicious Food, Delivered To You</h2>
@@ -15,6 +14,4 @@ const MealsSummary: FC = () => {
       </p>
     </section>
   );
-};
-
-export default MealsSummary;
+}

@@ -1,9 +1,8 @@
-import type { FC } from 'react';
-import { useContext } from 'react';
+import { useContext } from "react";
 
-import CartContext from '../../../store/cartContext';
-import classes from './MealItem.module.css';
-import MealItemForm from './MealItemForm';
+import CartContext from "../../../store/cartContext";
+import classes from "./MealItem.module.css";
+import MealItemForm from "./MealItemForm";
 
 interface MealItemProps {
   id: string;
@@ -12,17 +11,22 @@ interface MealItemProps {
   price: number;
 }
 
-const MealItem: FC<MealItemProps> = ({ id, name, description, price }) => {
+export default function MealItem({
+  description,
+  id,
+  name,
+  price,
+}: MealItemProps) {
   const cartCtx = useContext(CartContext);
 
   const formattedPrice = `Rs${price.toFixed(2)}`;
- 
+
   const addToCartHandler = (amount: number): void => {
     cartCtx.addItem({
       id,
       name,
       amount,
-      price
+      price,
     });
   };
 
@@ -38,6 +42,4 @@ const MealItem: FC<MealItemProps> = ({ id, name, description, price }) => {
       </div>
     </li>
   );
-};
-
-export default MealItem;
+}

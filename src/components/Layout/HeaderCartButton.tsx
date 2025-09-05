@@ -4,14 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/cartContext";
 import CartIcon from "../Cart/CartIcon";
 import classes from "./HeaderCartButton.module.css";
+import CartModalToggleContext from "../../store/cartModalToggleContext";
 
-interface HeaderCartButtonProps {
-  onClick: () => void;
-}
-
-const HeaderCartButton: FC<HeaderCartButtonProps> = ({ onClick }) => {
+const HeaderCartButton: FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
   const cartCtx = useContext(CartContext);
+  const cartMdlCtx = useContext(CartModalToggleContext);
 
   const { items } = cartCtx;
 
@@ -37,7 +35,7 @@ const HeaderCartButton: FC<HeaderCartButtonProps> = ({ onClick }) => {
   }, [items]);
 
   return (
-    <button className={btnClasses} onClick={onClick}>
+    <button className={btnClasses} onClick={cartMdlCtx.show}>
       <span className={classes.icon}>
         <CartIcon />
       </span>

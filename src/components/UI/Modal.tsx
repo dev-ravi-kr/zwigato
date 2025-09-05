@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from "react";
-import { Fragment } from "react";
-import ReactDOM from "react-dom";
+import type { ReactNode } from "react";
+import { Fragment, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 import classes from "./Modal.module.css";
 
@@ -8,35 +8,8 @@ interface BackdropProps {
   onClose: () => void;
 }
 
-const Backdrop: FC<BackdropProps> = ({ onClose }) => {
-  return <div className={classes.backdrop} onClick={onClose} />;
-};
-
 interface ModalOverlayProps {
   children: ReactNode;
-}
-
-const ModalOverlay: FC<ModalOverlayProps> = ({ children }) => {
-  return (
-    <div className={classes.modal}>
-      <div className={classes.content}>{children}</div>
-    </div>
-  );
-};
-
-let portalElement = document.getElementById("overlays");
-
-if (!portalElement) {
-  const body = document.querySelector("body");
-
-  const overLay = document.createElement("div");
-  overLay.setAttribute("id", "overlays");
-
-  body?.prepend(overLay);
-
-  portalElement = overLay;
-
-  // throw new Error("Element with id 'overlays' not found");
 }
 
 interface ModalProps {
@@ -44,16 +17,41 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal: FC<ModalProps> = ({ children, onClose }) => {
+function Backdrop({ onClose }: BackdropProps) {
+  return (
+    <>
+      <div className={classes.backdrop} onClick={onClose} />
+    </>
+  );
+}
+
+function ModalOverlay({ children }: ModalOverlayProps) {
+  return (
+    <div className={classes.modal}>
+      <div className={classes.content}>{children}</div>
+    </div>
+  );
+}
+
+let portalElement = document.getElementById("overlays");
+
+if (!portalElement) {
+  const body = document.querySelector("body");
+  const overLay = document.createElement("div");
+  overLay.setAttribute("id", "overlays");
+  body?.prepend(overLay);
+  portalElement = overLay;
+}
+
+export default function Modal({ children, onClose }: ModalProps) {
+  useEffect(() => {
+    portalElement?.focus();
+  }, []);
+
   return (
     <Fragment>
-      {ReactDOM.createPortal(<Backdrop onClose={onClose} />, portalElement!)}
-      {ReactDOM.createPortal(
-        <ModalOverlay>{children}</ModalOverlay>,
-        portalElement!
-      )}
+      {createPortal(<Backdrop onClose={onClose} />, portalElement!)}
+      {createPortal(<ModalOverlay>{children}</ModalOverlay>, portalElement!)}
     </Fragment>
   );
-};
-
-export default Modal;
+}

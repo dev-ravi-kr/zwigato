@@ -1,26 +1,24 @@
-import type { FC } from 'react';
-import { Fragment } from 'react';
-
 import mealsImage from "../../assets/meals.jpg";
-import classes from './Header.module.css';
-import HeaderCartButton from './HeaderCartButton';
+import classes from "./Header.module.css";
+import HeaderCartButton from "./HeaderCartButton";
+import Navigation from "./Navigation";
+import Section from "./Section";
 
-interface HeaderProps {
-  onShowCart: () => void;
-}
-
-const Header: FC<HeaderProps> = ({ onShowCart }) => {
+export default function Header() {
   return (
-    <Fragment>
+    <>
       <header className={classes.header}>
+        {/* logo */}
         <h1>Zwigato-Food Delivery</h1>
-        <HeaderCartButton onClick={onShowCart} />
+        {/* navigation links */}
+        <Navigation />
+        <HeaderCartButton />
       </header>
-      <div className={classes['main-image']}>
-        <img src={mealsImage} alt='A table full of delicious food!' />
-      </div>
-    </Fragment>
+      <Section>
+        <div className={classes["main-image"]}>
+          <img src={mealsImage} alt="A table full of delicious food!" />
+        </div>
+      </Section>
+    </>
   );
-};
-
-export default Header;
+}
